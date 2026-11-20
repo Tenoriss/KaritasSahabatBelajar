@@ -1,0 +1,86 @@
+import 'user_role.dart';
+
+class DemoAccount {
+  final UserRole role;
+  final String id;
+  final String password;
+  final String label;
+  final String idFieldLabel;
+  final String forgotFieldLabel;
+  final String loginTitle;
+  final String loginSubtitle;
+  final String roleCardTitle;
+  final String roleCardSubtitle;
+  final String roleEmoji;
+
+  const DemoAccount({
+    required this.role,
+    required this.id,
+    required this.password,
+    required this.label,
+    required this.idFieldLabel,
+    required this.forgotFieldLabel,
+    required this.loginTitle,
+    required this.loginSubtitle,
+    required this.roleCardTitle,
+    required this.roleCardSubtitle,
+    required this.roleEmoji,
+  });
+
+  static const Map<UserRole, DemoAccount> accounts = <UserRole, DemoAccount>{
+    UserRole.wali: DemoAccount(
+      role: UserRole.wali,
+      id: '19870001',
+      password: 'wali123',
+      label: 'Wali kelas',
+      idFieldLabel: 'NIP',
+      forgotFieldLabel: 'NIP',
+      loginTitle: 'Selamat datang,\nWali Kelas!',
+      loginSubtitle: 'Masuk untuk melanjutkan',
+      roleCardTitle: 'Saya Wali Kelas',
+      roleCardSubtitle: 'Pantau kelas, siswa, dan perkembangan belajar.',
+      roleEmoji: '👩🏻‍🏫',
+    ),
+    UserRole.guru: DemoAccount(
+      role: UserRole.guru,
+      id: '19870002',
+      password: 'guru123',
+      label: 'Guru mata pelajaran',
+      idFieldLabel: 'NIP',
+      forgotFieldLabel: 'NIP',
+      loginTitle: 'Selamat datang,\nGuru!',
+      loginSubtitle: 'Masuk untuk melanjutkan',
+      roleCardTitle: 'Saya Guru Mata Pelajaran',
+      roleCardSubtitle: 'Kelola tugas berdasarkan mata pelajaran dan kelas.',
+      roleEmoji: '📚',
+    ),
+    UserRole.operator: DemoAccount(
+      role: UserRole.operator,
+      id: '19870003',
+      password: 'operator123',
+      label: 'Operator sekolah',
+      idFieldLabel: 'NIP',
+      forgotFieldLabel: 'NIP',
+      loginTitle: 'Selamat datang,\nOperator Sekolah!',
+      loginSubtitle: 'Masuk untuk mengelola seluruh sekolah',
+      roleCardTitle: 'Saya Operator Sekolah',
+      roleCardSubtitle: 'Kelola siswa, kelas, materi, dan seluruh aset sekolah.',
+      roleEmoji: '🗂️',
+    ),
+    UserRole.siswa: DemoAccount(
+      role: UserRole.siswa,
+      id: '10050001',
+      password: 'siswa123',
+      label: 'Siswa',
+      idFieldLabel: 'NISN',
+      forgotFieldLabel: 'NISN',
+      loginTitle: 'Halo, Siswa!',
+      loginSubtitle: 'Masuk untuk belajar',
+      roleCardTitle: 'Saya Siswa',
+      roleCardSubtitle: 'Lihat dan kerjakan tugas secara mandiri.',
+      roleEmoji: '🎒',
+    ),
+  };
+
+  static DemoAccount forRole(UserRole role) => accounts[role]!;
+}
