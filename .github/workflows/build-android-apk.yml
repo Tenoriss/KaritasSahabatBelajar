@@ -1,0 +1,57 @@
+name: Build KARSA Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "lib/**"
+      - "assets/**"
+      - "pubspec.yaml"
+      - "pubspec.lock"
+      - ".github/workflows/build-android-apk.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Generate Android platform files
+        run: flutter create --platforms=android --org com.karitas .
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate KARSA launcher icons
+        run: dart run flutter_launcher_icons
+
+      - name: Set Android app display name
+        run: |
+          sed -i 's/android:label="karsa_app"/android:label="KARSA"/' android/app/src/main/AndroidManifest.xml
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Rename APK
+        run: cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/KARSA.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARSA-Android-APK
+          path: build/app/outputs/flutter-apk/KARSA.apk
+          if-no-files-found: error
+          retention-days: 14
