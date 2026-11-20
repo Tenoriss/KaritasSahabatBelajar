@@ -47,12 +47,12 @@ jobs:
                   continue
               content = path.read_text()
               content, count_kts = re.subn(
-                  r"compileSdk\\s*=\\s*flutter\\.compileSdkVersion",
+                  r"compileSdk\s*=\s*flutter\.compileSdkVersion",
                   "compileSdk = 36",
                   content,
               )
               content, count_groovy = re.subn(
-                  r"compileSdkVersion\\s+flutter\\.compileSdkVersion",
+                  r"compileSdkVersion\s+flutter\.compileSdkVersion",
                   "compileSdkVersion 36",
                   content,
               )
